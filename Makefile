@@ -1,8 +1,19 @@
+ifeq ($(OS),Windows_NT)
+  RM = del /Q /F
+  RMDIR = rmdir /Q /S
+  EXT = .exe
+else
+  RM = rm -f
+  RMDIR = rm -rf
+  EXT = 
+endif
+
 CC=@gcc
+BEAR=@bear
 SRC=$(wildcard src/*.c) $(wildcard src/**/*.c)
 OBJ=$(patsubst %.c,build/%.o,$(notdir $(SRC)))
 INCLUDE=include/
-EXEC=cry
+EXEC=cry$(EXT)
 
 all: $(EXEC)
 
@@ -19,10 +30,32 @@ build/%.o: %.c | build/
 	$(CC) -c $< -I $(INCLUDE) -o $@
 
 build/:
+ifeq ($(OS),Windows_NT)
+	@if not exist build mkdir build
+else
 	@mkdir -p build
+endif
 
 clean:
 	@echo "Cleaning up...."
-	@rm -rf build/
-	@rm cry
+	@$(RMDIR) build/
+	@$(RM) $(EXEC)
 	@echo "Done."
+
+run: $(EXEC)
+	@./$(EXEC)
+
+ifneq ($(OS),Windows_NT)
+compile_commands: clean
+	@if ! command -v bear >/dev/null 2>&1; then \
+		echo "Error: '$(BEAR)' is not installed! install it first first."; \
+		exit 1; \
+	fi
+	@echo "Generating compile_commands.json..."
+	$(BEAR) -- $(MAKE) all
+	@echo "Done."
+else
+	@echo "Error: '$(BEAR)' is not available to windows"
+endif
+
+PHONY: all clean run compile_commands
