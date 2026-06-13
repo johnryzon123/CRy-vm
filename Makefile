@@ -2,10 +2,12 @@ ifeq ($(OS),Windows_NT)
   RM = del /Q /F
   RMDIR = rmdir /Q /S
   EXT = .exe
+	RUN =
 else
   RM = rm -f
   RMDIR = rm -rf
-  EXT = 
+	RUN = ./
+  EXT =
 endif
 
 CC=@gcc
@@ -16,6 +18,8 @@ INCLUDE=include/
 EXEC=cry$(EXT)
 
 all: $(EXEC)
+debug: DEBUG_MODE=-g
+debug: clean all
 
 space:=$(subst ,, )
 comma:=,
@@ -27,7 +31,7 @@ VPATH = src:$(wildcard src/*/)
 
 build/%.o: %.c | build/
 	@echo "Compiling: $<"
-	$(CC) -c $< -I $(INCLUDE) -o $@
+	$(CC) -c $< -I $(INCLUDE) -o $@ $(DEBUG_MODE)
 
 build/:
 ifeq ($(OS),Windows_NT)
@@ -43,7 +47,7 @@ clean:
 	@echo "Done."
 
 run: $(EXEC)
-	@./$(EXEC)
+	@$(RUN)$(EXEC)
 
 ifneq ($(OS),Windows_NT)
 compile_commands: clean
@@ -58,4 +62,4 @@ else
 	@echo "Error: '$(BEAR)' is not available to windows"
 endif
 
-PHONY: all clean run compile_commands
+PHONY: all clean run compile_commands debug

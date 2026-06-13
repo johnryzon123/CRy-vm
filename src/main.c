@@ -1,3 +1,5 @@
+#include "utils/repl.h"
+
 int main() {
-  return 0;
+  return repl();
 }
