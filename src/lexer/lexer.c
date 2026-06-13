@@ -3,7 +3,9 @@
 
 Token scanToken(Lexer* lexer) {
   skipSpaces(lexer);
-
+  if (lexer->Errornow.type == LEX_ERR) {
+    return lexer->Errornow;
+  }
   lexer->start = lexer->current;
   char c = peek(lexer);
   nextchar(lexer);
@@ -30,19 +32,19 @@ Token* scanTokens(Lexer* lexer) {
 
   while (1) {
     Token token = scanToken(lexer);
+
     if (used >= buffer) {
       buffer *= 2;
       tokens = realloc(tokens, sizeof(Token) * buffer);
     }
 
     tokens[used] = token;
-    used++;
 
-    if (token.type == TOK_EOF) {
+    if (token.type == TOK_EOF || token.type == LEX_ERR) {
       break;
     }
+    used++;
   }
-  tokens[used].type = TOK_EOF;
 
   return tokens;
 }

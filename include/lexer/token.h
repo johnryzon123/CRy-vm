@@ -9,7 +9,8 @@ typedef enum TokenType {
 
   NUMBER,
 
-  TOK_EOF
+  TOK_EOF, LEX_ERR,
+  LEX_ERR_NONE
 } TokenType;
 
 typedef struct Token {
@@ -18,6 +19,7 @@ typedef struct Token {
   unsigned int column;
   unsigned int length;
   char* start;
+  char* message;
 } Token;
 
 #endif

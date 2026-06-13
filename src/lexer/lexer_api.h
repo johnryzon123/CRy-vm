@@ -4,6 +4,7 @@
 #include "lexer/token.h"
 
 Token setToken(Lexer* lexer, TokenType type);
+Token setLexError(Lexer* lexer, char* message);
 char peek(Lexer* lexer);
 void nextchar(Lexer* lexer);
 void skipSpaces(Lexer* lexer);

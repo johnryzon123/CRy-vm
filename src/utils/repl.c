@@ -21,19 +21,27 @@ void debugToken(Token token) {
         case SLASH:  type_str = "SLASH";  break;
         case NUMBER: type_str = "NUMBER"; break;
         case TOK_EOF:    type_str = "EOF";    break;
+        case LEX_ERR: type_str = "ERROR"; break;
+        default:
+          return;
     }
 
-printf("[TOKEN] Line: %d | Col: %d | Type: %-8s | Literal: '%.*s'\n",
+printf("[TOKEN] Line: %d | Col: %d | Type: %s | Literal: '%.*s' | Message: '%s'\n",
            token.line_num,
            token.column,
            type_str,
            token.length,
-           token.start);
+           token.start,
+           token.message);
 }
 
 void debugTokens(Token* tokens) {
   while (tokens->type != TOK_EOF) {
     debugToken(*tokens);
+
+    if (tokens->type == LEX_ERR)
+      return;
+
     tokens++;
   }
   debugToken(*tokens);
@@ -54,6 +62,8 @@ int repl() {
     initLexer(&lexer, line);
     Token* tokens = scanTokens(&lexer);
     debugTokens(tokens);
+    lexer.Errornow.type = LEX_ERR_NONE;
+
     free(tokens);
     free(line);
   }
