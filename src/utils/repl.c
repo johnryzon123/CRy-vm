@@ -11,7 +11,7 @@ static bool isExit(char* line) {
   return strcmp(line, "exit") == 0;
 }
 
-void debugToken(Token token) {
+static void debugToken(Token token) {
     const char* type_str = "UNKNOWN";
 
     switch (token.type) {
@@ -35,7 +35,7 @@ printf("[TOKEN] Line: %d | Col: %d | Type: %s | Literal: '%.*s' | Message: '%s'\
            token.message);
 }
 
-void debugTokens(Token* tokens) {
+static void debugTokens(Token* tokens) {
   while (tokens->type != TOK_EOF) {
     debugToken(*tokens);
 

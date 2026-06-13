@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <ctype.h>
 #include "lexer_api.h"
 
 Token scanToken(Lexer* lexer) {
@@ -9,6 +10,10 @@ Token scanToken(Lexer* lexer) {
   lexer->start = lexer->current;
   char c = peek(lexer);
   nextchar(lexer);
+
+  if (isdigit(c)) {
+    return handleNumber(lexer);
+  }
 
   switch (c) {
     case '+':
