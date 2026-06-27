@@ -3,12 +3,12 @@
 #include "token.h"
 
 typedef struct Lexer {
-  unsigned int line_num/*ber*/;
-  unsigned int /*current*/column;
+  unsigned short line_num/*ber*/;
+  unsigned short /*current*/column;
   char* start;
   char* current/*character*/;
 
-  Token Errornow;
+  Token Tokennow;
 } Lexer;
 
 void initLexer(Lexer* lexer, char* src);

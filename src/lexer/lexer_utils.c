@@ -6,7 +6,7 @@ static void skipComments(Lexer* lexer) {
   }
 
   if (peek(lexer) == '\0') {
-    lexer->Errornow = setLexError(lexer, "Missing ')' in comment");
+    setLexError(lexer, "Missing ')' in comment");
     return;
   }
 
@@ -18,7 +18,7 @@ char peek(Lexer* lexer) {
 }
 
 void nextchar(Lexer* lexer) {
-  if (lexer->Errornow.type == LEX_ERR) return;
+  if (lexer->Tokennow.type == LEX_ERR) return;
   if (peek(lexer) == '\0') return;
   if (peek(lexer) == '\n') {
     lexer->column = 1;
@@ -30,32 +30,30 @@ void nextchar(Lexer* lexer) {
 }
 
 Token setToken(Lexer* lexer, TokenType type) {
-  Token token;
-  token.type = type;
-  token.line_num = lexer->line_num;
-  token.column = lexer->column;
-  token.length = (unsigned int)(lexer->current - lexer->start);
-  token.start = lexer->start;
-  token.message = lexer->start;
+  lexer->Tokennow.type = type;
+  lexer->Tokennow.line_num = lexer->line_num;
+  lexer->Tokennow.column = lexer->column;
+  lexer->Tokennow.length = (unsigned int)(lexer->current - lexer->start);
+  lexer->Tokennow.start = lexer->start;
+  lexer->Tokennow.message = lexer->start;
   lexer->start = lexer->current;
-  return token;
+  return lexer->Tokennow;
 }
 
 Token setLexError(Lexer* lexer, char* message) {
-  Token token;
-  token.type = LEX_ERR;
-  token.line_num = lexer->line_num;
-  token.column = lexer->column;
-  token.length = (unsigned int)(lexer->current - lexer->start);
-  token.start = lexer->start;
-  token.message = message;
+  lexer->Tokennow.type = LEX_ERR;
+  lexer->Tokennow.line_num = lexer->line_num;
+  lexer->Tokennow.column = lexer->column;
+  lexer->Tokennow.length = (unsigned int)(lexer->current - lexer->start);
+  lexer->Tokennow.start = lexer->start;
+  lexer->Tokennow.message = message;
   lexer->start = lexer->current;
-  return token;
+  return lexer->Tokennow;
 }
 
 void skipSpaces(Lexer* lexer) {
   while (1) {
-    if (lexer->Errornow.type == LEX_ERR) {
+    if (lexer->Tokennow.type == LEX_ERR) {
       return;  
     }
 
@@ -70,6 +68,7 @@ void skipSpaces(Lexer* lexer) {
         skipComments(lexer);
         break;
       default:
+        lexer->start = lexer->current;
         return;
     }
   }

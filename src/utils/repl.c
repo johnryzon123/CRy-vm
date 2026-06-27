@@ -64,7 +64,7 @@ int repl() {
     initLexer(&lexer, line);
     Token* tokens = scanTokens(&lexer);
     debugTokens(tokens);
-    lexer.Errornow.type = LEX_ERR_NONE;
+    lexer.Tokennow.type = LEX_ERR_NONE;
 
     free(tokens);
     free(line);

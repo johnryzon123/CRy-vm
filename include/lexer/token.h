@@ -18,8 +18,8 @@ typedef enum TokenType {
 
 typedef struct Token {
   TokenType type;
-  unsigned int line_num;
-  unsigned int column;
+  unsigned short line_num;
+  unsigned short column;
   unsigned int length;
   char* start;
   char* message;

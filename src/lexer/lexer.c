@@ -4,8 +4,15 @@
 
 Token scanToken(Lexer* lexer) {
   skipSpaces(lexer);
-  if (lexer->Errornow.type == LEX_ERR) {
-    return lexer->Errornow;
+
+  if (lexer->line_num > 59999) {
+    return setLexError(lexer, "Line number exeeded line limit (59999 lines)");
+  } else if (lexer->column > 59999) {
+    return setLexError(lexer, "Column exeeded column limit (59999 columns)");
+  }
+
+  if (lexer->Tokennow.type == LEX_ERR) {
+    return lexer->Tokennow;
   }
   lexer->start = lexer->current;
   char c = peek(lexer);
@@ -31,7 +38,7 @@ Token scanToken(Lexer* lexer) {
     case '\0':
       return setToken(lexer, TOK_EOF);
   }
-  return setToken(lexer, TOK_EOF);
+  return setLexError(lexer, "Unknown character");
 }
 
 Token* scanTokens(Lexer* lexer) {
@@ -63,4 +70,5 @@ void initLexer(Lexer* lexer, char* src) {
   lexer->column = 0;
   lexer->start = src;
   lexer->current = src;
+  lexer->Tokennow.type = TOK_NONE;
 }
