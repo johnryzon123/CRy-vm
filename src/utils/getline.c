@@ -3,7 +3,7 @@
 #include "utils/getline.h"
 
 char* getLine() {
-  size_t buffer = 15;
+  size_t buffer = 256;
   size_t used = 0;
   int c;
   char* line = malloc(sizeof(char) * buffer);

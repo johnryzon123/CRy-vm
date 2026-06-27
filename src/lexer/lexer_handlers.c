@@ -20,18 +20,22 @@ Token handleNumber(Lexer* lexer) {
 
 Token handleNames(Lexer* lexer) {
   char c;
-  while ((isalpha(c = peek(lexer)) || c == ' ')
-                               && c != '\n'
+
+  while ((isalpha(c = peek(lexer)) || c == ' ') 
+                               && c != '\n' 
                                && c != '\0') {
     nextchar(lexer);
-    isKeyword(lexer);
-    if (lexer->Tokennow.type != TOK_NONE) {
-      return lexer->Tokennow;
-    }
   }
 
   if (lexer->current > lexer->start && *(lexer->current - 1) == ' ') {
     lexer->current--;
   }
-  return setToken(lexer, TOK_NAME);
+
+  isKeyword(lexer);
+  if (lexer->Tokennow.type != TOK_NONE) {
+    return lexer->Tokennow;
+  }
+
+  lexer->Tokennow = setToken(lexer, TOK_NAME);
+  return lexer->Tokennow;
 }

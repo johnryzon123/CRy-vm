@@ -56,20 +56,15 @@ void skipSpaces(Lexer* lexer) {
     if (lexer->Tokennow.type == LEX_ERR) {
       return;  
     }
-
-    switch (peek(lexer)) {
-      case ' ':
-      case '\r':
-      case '\t':
-      case '\n':
-        nextchar(lexer);
-        break;
-      case '(':
-        skipComments(lexer);
-        break;
-      default:
-        lexer->start = lexer->current;
-        return;
+    
+    char c = peek(lexer);
+    if (c == ' ' || c == '\r' || c == '\t' || c == '\n') {
+      nextchar(lexer);
+    } else if (c == '(') {
+      skipComments(lexer);
+    } else {
+      lexer->start = lexer->current;
+      return;
     }
   }
 }

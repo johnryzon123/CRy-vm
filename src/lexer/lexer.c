@@ -47,16 +47,16 @@ Token* scanTokens(Lexer* lexer) {
   Token* tokens = malloc(sizeof(Token) * buffer);
 
   while (1) {
-    Token token = scanToken(lexer);
+    scanToken(lexer);
 
     if (used >= buffer) {
       buffer *= 2;
       tokens = realloc(tokens, sizeof(Token) * buffer);
     }
 
-    tokens[used] = token;
+    tokens[used] = lexer->Tokennow;
 
-    if (token.type == TOK_EOF || token.type == LEX_ERR) {
+    if (lexer->Tokennow.type == TOK_EOF || lexer->Tokennow.type == LEX_ERR) {
       break;
     }
     used++;
