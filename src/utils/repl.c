@@ -15,13 +15,15 @@ static void debugToken(Token token) {
     const char* type_str = "UNKNOWN";
 
     switch (token.type) {
-        case PLUS:   type_str = "PLUS";   break;
-        case MINUS:  type_str = "MINUS";  break;
-        case STAR:   type_str = "STAR";   break;
-        case SLASH:  type_str = "SLASH";  break;
-        case NUMBER: type_str = "NUMBER"; break;
+        case TOK_PLUS:   type_str = "PLUS";   break;
+        case TOK_MINUS:  type_str = "MINUS";  break;
+        case TOK_STAR:   type_str = "STAR";   break;
+        case TOK_SLASH:  type_str = "SLASH";  break;
+        case TOK_NUMBER: type_str = "NUMBER"; break;
+        case TOK_SAY:    type_str = "SAY";    break;
+        case TOK_NAME:   type_str = "NAME";   break;
         case TOK_EOF:    type_str = "EOF";    break;
-        case LEX_ERR: type_str = "ERROR"; break;
+        case LEX_ERR:    type_str = "ERROR";  break;
         default:
           return;
     }

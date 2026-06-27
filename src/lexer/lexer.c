@@ -9,21 +9,25 @@ Token scanToken(Lexer* lexer) {
   }
   lexer->start = lexer->current;
   char c = peek(lexer);
-  nextchar(lexer);
 
   if (isdigit(c)) {
     return handleNumber(lexer);
   }
 
+  if (isalpha(c)) {
+    return handleNames(lexer);
+  }
+  
+  nextchar(lexer);
   switch (c) {
     case '+':
-      return setToken(lexer, PLUS);
+      return setToken(lexer, TOK_PLUS);
     case '-':
-      return setToken(lexer, MINUS);
+      return setToken(lexer, TOK_MINUS);
     case '*':
-      return setToken(lexer, STAR);
+      return setToken(lexer, TOK_STAR);
     case '/':
-      return setToken(lexer, SLASH);
+      return setToken(lexer, TOK_SLASH);
     case '\0':
       return setToken(lexer, TOK_EOF);
   }

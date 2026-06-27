@@ -2,14 +2,17 @@
 #define INCLUDE_LEXER_TOKEN_H
 
 typedef enum TokenType {
-  PLUS,
-  MINUS,
-  STAR,
-  SLASH,
+  TOK_PLUS,
+  TOK_MINUS,
+  TOK_STAR,
+  TOK_SLASH,
 
-  NUMBER,
+  TOK_NUMBER,
+  TOK_NAME,
 
-  TOK_EOF, LEX_ERR,
+  TOK_SAY,
+
+  TOK_EOF, TOK_NONE, LEX_ERR,
   LEX_ERR_NONE
 } TokenType;
 
