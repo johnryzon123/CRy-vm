@@ -7,6 +7,7 @@ typedef struct Lexer {
   unsigned short /*current*/column;
   char* start;
   char* current/*character*/;
+  char* editor;
 
   Token Tokennow;
 } Lexer;

@@ -1,6 +1,17 @@
 #include "lexer_api.h"
 
-static void skipComments(Lexer* lexer) {
+static void handleLine_Column(Lexer* lexer) {
+  if (lexer->Tokennow.type == LEX_ERR) return;
+  if (peek(lexer) == '\0') return;
+  if (peek(lexer) == '\n') {
+    lexer->column = 1;
+    lexer->line_num++;
+  } else {
+    lexer->column++;
+  }
+}
+
+void skipComments(Lexer* lexer) {
   while (peek(lexer) != ')' && peek(lexer) != '\0') {
     nextchar(lexer);
   }
@@ -17,16 +28,24 @@ char peek(Lexer* lexer) {
   return *(lexer->current);
 }
 
+char peekNext(Lexer* lexer) {
+  return *(lexer->current + 1);
+}
+
+char peekEdit(Lexer* lexer) {
+  return *(lexer->editor);
+}
+
 void nextchar(Lexer* lexer) {
   if (lexer->Tokennow.type == LEX_ERR) return;
-  if (peek(lexer) == '\0') return;
-  if (peek(lexer) == '\n') {
-    lexer->column = 1;
-    lexer->line_num++;
-  } else {
-    lexer->column++;
-  }
+  handleLine_Column(lexer);
   lexer->current++;
+}
+
+void nextcharEdit(Lexer* lexer) {
+  if (lexer->Tokennow.type == LEX_ERR) return;
+  handleLine_Column(lexer);
+  lexer->editor++;
 }
 
 Token setToken(Lexer* lexer, TokenType type) {

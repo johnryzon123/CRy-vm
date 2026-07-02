@@ -8,7 +8,11 @@ Token handleNames(Lexer* lexer);
 Token setToken(Lexer* lexer, TokenType type);
 Token setLexError(Lexer* lexer, char* message);
 char peek(Lexer* lexer);
+char peekNext(Lexer* lexer);
+char peekEdit(Lexer* lexer);
 void nextchar(Lexer* lexer);
+void nextcharEdit(Lexer* lexer);
 void skipSpaces(Lexer* lexer);
+void skipComments(Lexer* lexer);
 
 #endif

@@ -70,5 +70,6 @@ void initLexer(Lexer* lexer, char* src) {
   lexer->column = 0;
   lexer->start = src;
   lexer->current = src;
+  lexer->editor = src;
   lexer->Tokennow.type = TOK_NONE;
 }
