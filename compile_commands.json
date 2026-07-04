@@ -1,0 +1,30 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "include/",
+      "-o",
+      "build/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/ryzon/Dev/Projects/CRy",
+    "file": "/home/ryzon/Dev/Projects/CRy/src/main.c",
+    "output": "/home/ryzon/Dev/Projects/CRy/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "include/",
+      "-o",
+      "build/repl.o",
+      "src/utils/repl.c"
+    ],
+    "directory": "/home/ryzon/Dev/Projects/CRy",
+    "file": "/home/ryzon/Dev/Projects/CRy/src/utils/repl.c",
+    "output": "/home/ryzon/Dev/Projects/CRy/build/repl.o"
+  }
+]
