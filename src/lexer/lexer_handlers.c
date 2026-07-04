@@ -1,4 +1,3 @@
-#include <string.h> // temporary strcmp
 #include <stdbool.h>
 #include <ctype.h>
 #include "lexer_api.h"
@@ -22,10 +21,19 @@ static void unalnum_for_names(Lexer* lexer) {
 }
 
 static void isKeyword(Lexer* lexer) {
-  size_t length = lexer->current - lexer->start;
+  int length = lexer->current - lexer->start;
   lexer->Tokennow.type = TOK_NONE;
-  if (length == 3 && strncmp(lexer->start, "say", 3) == 0) {
-    lexer->Tokennow = setToken(lexer, TOK_SAY);
+
+  switch (length) {
+    case 3:
+      if (lexer->start[0] == 's') {
+        if (lexer->start[1] == 'a' && lexer->start[2] == 'y') {
+          lexer->Tokennow = setToken(lexer, TOK_SAY);
+          return;
+        }
+      }
+    default:
+      return;
   }
 }
 
