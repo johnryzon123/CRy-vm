@@ -44,7 +44,7 @@ void nextchar(Lexer* lexer) {
 
 void nextcharEdit(Lexer* lexer) {
   if (lexer->Tokennow.type == LEX_ERR) return;
-  handleLine_Column(lexer);
+  //handleLine_Column(lexer);
   lexer->editor++;
 }
 
@@ -52,9 +52,9 @@ Token setToken(Lexer* lexer, TokenType type) {
   lexer->Tokennow.type = type;
   lexer->Tokennow.line_num = lexer->line_num;
   lexer->Tokennow.column = lexer->column;
-  lexer->Tokennow.length = (unsigned int)(lexer->current - lexer->start);
+  lexer->Tokennow.length = (unsigned int)(lexer->editor - lexer->start);
   lexer->Tokennow.start = lexer->start;
-  lexer->Tokennow.message = lexer->start;
+  lexer->Tokennow.message = "\0";
   lexer->start = lexer->current;
   return lexer->Tokennow;
 }
@@ -63,7 +63,7 @@ Token setLexError(Lexer* lexer, char* message) {
   lexer->Tokennow.type = LEX_ERR;
   lexer->Tokennow.line_num = lexer->line_num;
   lexer->Tokennow.column = lexer->column;
-  lexer->Tokennow.length = (unsigned int)(lexer->current - lexer->start);
+  lexer->Tokennow.length = (unsigned int)(lexer->editor - lexer->start);
   lexer->Tokennow.start = lexer->start;
   lexer->Tokennow.message = message;
   lexer->start = lexer->current;

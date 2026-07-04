@@ -70,10 +70,6 @@ Token handleNames(Lexer* lexer) {
     lexer->editor--;
   }
 
-  *lexer->editor = '\0';
-
-  lexer->current = lexer->editor;
-
   isKeyword(lexer);
   if (lexer->Tokennow.type != TOK_NONE) {
     return lexer->Tokennow;
