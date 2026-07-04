@@ -15,6 +15,7 @@ Token scanToken(Lexer* lexer) {
     return lexer->Tokennow;
   }
   lexer->start = lexer->current;
+  lexer->editor = lexer->current;
   char c = peek(lexer);
 
   if (isdigit(c)) {
