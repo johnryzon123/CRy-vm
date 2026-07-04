@@ -52,6 +52,7 @@ static void debugTokens(Token* tokens) {
 int repl() {
   char* line;
   Lexer lexer;
+  initLexer(&lexer);
   while (true) {
     printf(">> ");
     line = getLine();
@@ -61,7 +62,7 @@ int repl() {
       break;
     }
 
-    initLexer(&lexer, line);
+    setSourceLexer(&lexer, line);
     Token* tokens = scanTokens(&lexer);
     debugTokens(tokens);
     lexer.Tokennow.type = LEX_ERR_NONE;

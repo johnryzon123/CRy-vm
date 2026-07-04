@@ -12,7 +12,8 @@ typedef struct Lexer {
   Token Tokennow;
 } Lexer;
 
-void initLexer(Lexer* lexer, char* src);
+void initLexer(Lexer* lexer);
+void setSourceLexer(Lexer* lexer, char* src);
 Token scanToken(Lexer* lexer);
 Token* scanTokens(Lexer* lexer);
 

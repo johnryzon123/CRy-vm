@@ -26,6 +26,7 @@ Token scanToken(Lexer* lexer) {
   }
   
   nextchar(lexer);
+  nextcharEdit(lexer);
   switch (c) {
     case '+':
       return setToken(lexer, TOK_PLUS);
@@ -47,29 +48,30 @@ Token* scanTokens(Lexer* lexer) {
   Token* tokens = malloc(sizeof(Token) * buffer);
 
   while (1) {
-    scanToken(lexer);
-
     if (used >= buffer) {
       buffer *= 2;
       tokens = realloc(tokens, sizeof(Token) * buffer);
     }
-
+    scanToken(lexer);
     tokens[used] = lexer->Tokennow;
+    used++;
 
     if (lexer->Tokennow.type == TOK_EOF || lexer->Tokennow.type == LEX_ERR) {
       break;
     }
-    used++;
   }
 
   return tokens;
 }
 
-void initLexer(Lexer* lexer, char* src) {
+void initLexer(Lexer* lexer) {
   lexer->line_num = 1;
   lexer->column = 0;
+  lexer->Tokennow.type = TOK_NONE;
+}
+
+void setSourceLexer(Lexer* lexer, char* src) {
   lexer->start = src;
   lexer->current = src;
   lexer->editor = src;
-  lexer->Tokennow.type = TOK_NONE;
 }
