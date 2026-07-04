@@ -60,8 +60,7 @@ Token handleNames(Lexer* lexer) {
         unalnum_for_names(lexer);
         if (lexer->Tokennow.type != TOK_NONE)
           return lexer->Tokennow;
-        
-        continue;
+        continue; 
       } else { 
         break;
       }

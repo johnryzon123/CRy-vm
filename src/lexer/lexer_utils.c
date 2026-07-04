@@ -55,7 +55,9 @@ Token setToken(Lexer* lexer, TokenType type) {
   lexer->Tokennow.length = (unsigned int)(lexer->editor - lexer->start);
   lexer->Tokennow.start = lexer->start;
   lexer->Tokennow.message = "\0";
+
   lexer->start = lexer->current;
+  lexer->editor = lexer->current;
   return lexer->Tokennow;
 }
 
@@ -66,7 +68,9 @@ Token setLexError(Lexer* lexer, char* message) {
   lexer->Tokennow.length = (unsigned int)(lexer->editor - lexer->start);
   lexer->Tokennow.start = lexer->start;
   lexer->Tokennow.message = message;
+
   lexer->start = lexer->current;
+  lexer->editor = lexer->current;
   return lexer->Tokennow;
 }
 
