@@ -21,7 +21,7 @@ static void unalnum_for_names(Lexer* lexer) {
 }
 
 static void isKeyword(Lexer* lexer) {
-  int length = lexer->current - lexer->start;
+  int length = lexer->editor - lexer->start;
   lexer->Tokennow.type = TOK_NONE;
 
   switch (length) {
@@ -47,6 +47,7 @@ Token handleNumber(Lexer* lexer) {
 
 Token handleNames(Lexer* lexer) {
   char c;
+  bool ufn = false;
 
   while (1) {
     c = peek(lexer);
@@ -55,6 +56,7 @@ Token handleNames(Lexer* lexer) {
 
     if (c == '(') {
       if (lexer->current > lexer->start && *(lexer->current - 1) != ' ') {
+        ufn = true;
         unalnum_for_names(lexer);
         if (lexer->Tokennow.type != TOK_NONE)
           return lexer->Tokennow;
@@ -77,10 +79,12 @@ Token handleNames(Lexer* lexer) {
   if (lexer->editor > lexer->start && *(lexer->editor - 1) == ' ') {
     lexer->editor--;
   }
-
-  isKeyword(lexer);
-  if (lexer->Tokennow.type != TOK_NONE) {
-    return lexer->Tokennow;
+  
+  if (!ufn) {
+    isKeyword(lexer);
+    if (lexer->Tokennow.type != TOK_NONE) {
+      return lexer->Tokennow;
+    }
   }
 
   lexer->Tokennow = setToken(lexer, TOK_NAME);
