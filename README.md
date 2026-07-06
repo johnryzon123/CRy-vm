@@ -58,22 +58,24 @@ to compile the program with debug symbols enabled:
 
 ## Folder Structure
 
-`src/`: contains the source files in the language
-    |-`lexer/`: contains lexer source files
-        |-`lexer.c`: has the core functions for the lexer(scanner) to run
-        |-`lexer_api.h`: contains declarations of private lexer functions
-        |-`lexer_handlers.c`: handles names, numbers and the ufn
-        |-`lexer_utils.c`: includes the lexer utility functions
-    |-`utils/`: contains public language utilities
-        |-`getline.c`: implementation of the custom getline
-        |-`repl.c`: implementation of the Read, Evaluate, Print Loop
-    |-`main.c`: the main entry point
-
-`include/`:
-    |-`lexer/`:
-        |-`lexer.h`: public lexer definitions
-        |-`token.h`: token structure definition
-    |-`utils/`: public utility definitions
-        |-`getline.h`: custom getline function definition
-        |-`repl.h`: public repl function definitions
+.
+├── include - contains the declarations of functions
+│   ├── lexer - contains lexer definitions
+│   │   ├── lexer.h - contains lexer-specific function definitions
+│   │   └── token.h - contains the token structure
+│   └── utils - contains utility function definitions
+│       ├── getline.h - the definition for the custom getline function
+│       └── repl.h - definitions for the repl
+├── LICENSE - license
+├── Makefile - the "all-in-one" script that make uses
+└── src - contains the sources of the language
+    ├── lexer - contains the lexer implementations
+    │   ├── lexer_api.h - the definitions of private lexer instances
+    │   ├── lexer.c - main public function implementations
+    │   ├── lexer_handlers.c - contains functions handling numbers, ufn, names, etc.
+    │   └── lexer_utils.c - contains lexer utilities such as peek
+    ├── main.c - the main entry point of the program
+    └── utils - utility function implementations
+        ├── getline.c - custom getline implementation
+        └── repl.c - repl implementation
         
