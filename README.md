@@ -55,27 +55,3 @@ to compile the program with debug symbols enabled:
     ```bash
     $ make debug
     ```
-
-## Folder Structure
-
-.
-├── include - contains the declarations of functions
-│   ├── lexer - contains lexer definitions
-│   │   ├── lexer.h - contains lexer-specific function definitions
-│   │   └── token.h - contains the token structure
-│   └── utils - contains utility function definitions
-│       ├── getline.h - the definition for the custom getline function
-│       └── repl.h - definitions for the repl
-├── LICENSE - license
-├── Makefile - the "all-in-one" script that make uses
-└── src - contains the sources of the language
-    ├── lexer - contains the lexer implementations
-    │   ├── lexer_api.h - the definitions of private lexer instances
-    │   ├── lexer.c - main public function implementations
-    │   ├── lexer_handlers.c - contains functions handling numbers, ufn, names, etc.
-    │   └── lexer_utils.c - contains lexer utilities such as peek
-    ├── main.c - the main entry point of the program
-    └── utils - utility function implementations
-        ├── getline.c - custom getline implementation
-        └── repl.c - repl implementation
-        
