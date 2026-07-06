@@ -25,6 +25,10 @@ Token scanToken(Lexer* lexer) {
   if (isalpha(c)) {
     return handleNames(lexer);
   }
+
+  if (c == '"') {
+    return handleQuote(lexer);
+  }
   
   nextchar(lexer);
   nextcharEdit(lexer);

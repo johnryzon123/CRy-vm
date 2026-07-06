@@ -2,6 +2,19 @@
 #include <ctype.h>
 #include "lexer_api.h"
 
+static Token setQuoteToken(Lexer* lexer) {
+  lexer->Tokennow.type = TOK_QUOTE;
+  lexer->Tokennow.line_num = lexer->line_num;
+  lexer->Tokennow.column = lexer->column;
+  lexer->Tokennow.length = (unsigned int)((lexer->editor - lexer->start) - 2);
+  lexer->Tokennow.start = lexer->start + 1;
+  lexer->Tokennow.message = "\0";
+
+  lexer->start = lexer->current;
+  lexer->editor = lexer->current;
+  return lexer->Tokennow;
+}
+
 static void unalnum_for_names(Lexer* lexer) {
   nextchar(lexer);
   
@@ -37,9 +50,29 @@ static void isKeyword(Lexer* lexer) {
   }
 }
 
+Token handleQuote(Lexer* lexer) {
+  nextchar(lexer);
+  nextcharEdit(lexer);
+
+  char c;
+  while ((c = peek(lexer)) != '"' && c != '\0') {
+    nextchar(lexer);
+    nextcharEdit(lexer);
+  }
+
+  if (c == '\0') {
+    return setLexError(lexer, "Incomplete quote, quote must have '\"' in the end");
+  }
+  
+  nextchar(lexer);
+  nextcharEdit(lexer);
+  return setQuoteToken(lexer);
+}
+
 Token handleNumber(Lexer* lexer) {
   while (isdigit(peek(lexer))) {
     nextchar(lexer);
+    nextcharEdit(lexer);
   }
   
   return setToken(lexer, TOK_NUMBER);

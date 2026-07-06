@@ -20,6 +20,62 @@
       "-I",
       "include/",
       "-o",
+      "build/lexer.o",
+      "src/lexer/lexer.c"
+    ],
+    "directory": "/home/ryzon/Dev/Projects/CRy",
+    "file": "/home/ryzon/Dev/Projects/CRy/src/lexer/lexer.c",
+    "output": "/home/ryzon/Dev/Projects/CRy/build/lexer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "include/",
+      "-o",
+      "build/lexer_handlers.o",
+      "src/lexer/lexer_handlers.c"
+    ],
+    "directory": "/home/ryzon/Dev/Projects/CRy",
+    "file": "/home/ryzon/Dev/Projects/CRy/src/lexer/lexer_handlers.c",
+    "output": "/home/ryzon/Dev/Projects/CRy/build/lexer_handlers.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "include/",
+      "-o",
+      "build/lexer_utils.o",
+      "src/lexer/lexer_utils.c"
+    ],
+    "directory": "/home/ryzon/Dev/Projects/CRy",
+    "file": "/home/ryzon/Dev/Projects/CRy/src/lexer/lexer_utils.c",
+    "output": "/home/ryzon/Dev/Projects/CRy/build/lexer_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "include/",
+      "-o",
+      "build/getline.o",
+      "src/utils/getline.c"
+    ],
+    "directory": "/home/ryzon/Dev/Projects/CRy",
+    "file": "/home/ryzon/Dev/Projects/CRy/src/utils/getline.c",
+    "output": "/home/ryzon/Dev/Projects/CRy/build/getline.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "include/",
+      "-o",
       "build/repl.o",
       "src/utils/repl.c"
     ],

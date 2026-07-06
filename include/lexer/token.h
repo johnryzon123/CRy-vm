@@ -9,6 +9,7 @@ typedef enum TokenType {
 
   TOK_NUMBER,
   TOK_NAME,
+  TOK_QUOTE,
 
   TOK_SAY,
 

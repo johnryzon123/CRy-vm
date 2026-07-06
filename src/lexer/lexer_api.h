@@ -5,6 +5,7 @@
 
 Token handleNumber(Lexer* lexer);
 Token handleNames(Lexer* lexer);
+Token handleQuote(Lexer* lexer);
 Token setToken(Lexer* lexer, TokenType type);
 Token setLexError(Lexer* lexer, char* message);
 char peek(Lexer* lexer);

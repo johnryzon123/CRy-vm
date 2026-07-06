@@ -20,6 +20,7 @@ static void debugToken(Token token) {
         case TOK_STAR:   type_str = "STAR";   break;
         case TOK_SLASH:  type_str = "SLASH";  break;
         case TOK_NUMBER: type_str = "NUMBER"; break;
+        case TOK_QUOTE:  type_str = "QUOTE";  break;
         case TOK_SAY:    type_str = "SAY";    break;
         case TOK_NAME:   type_str = "NAME";   break;
         case TOK_EOF:    type_str = "EOF";    break;

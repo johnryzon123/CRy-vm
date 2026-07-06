@@ -14,6 +14,7 @@ static void handleLine_Column(Lexer* lexer) {
 void skipComments(Lexer* lexer) {
   while (peek(lexer) != ')' && peek(lexer) != '\0') {
     nextchar(lexer);
+    nextcharEdit(lexer);
   }
 
   if (peek(lexer) == '\0') {
@@ -22,6 +23,7 @@ void skipComments(Lexer* lexer) {
   }
 
   nextchar(lexer);
+  nextcharEdit(lexer);
 }
 
 char peek(Lexer* lexer) {
