@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "parser/parser.h"
 #include "utils/repl.h"
 #include "utils/getline.h"
 #include "lexer/lexer.h"
@@ -50,9 +51,11 @@ static void debugTokens(Token* tokens) {
   debugToken(*tokens);
 }
 
+
 int repl() {
   char* line;
   Lexer lexer;
+  Parser parser;
   initLexer(&lexer);
   while (true) {
     printf(">> ");
@@ -66,8 +69,11 @@ int repl() {
     setSourceLexer(&lexer, line);
     Token* tokens = scanTokens(&lexer);
     debugTokens(tokens);
+    initParser(&parser, &tokens);
+    parse(&parser);
     lexer.Tokennow.type = LEX_ERR_NONE;
 
+    free(parser.asts.nodes);
     free(tokens);
     free(line);
   }

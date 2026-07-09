@@ -3,14 +3,15 @@
 
 typedef enum ASTType {
   // Operators
-  AST_PLUS, AST_MINUS,
-  AST_MULTIPLY, AST_DIVIDE,
+  NODE_PLUS, NODE_MINUS,
+  NODE_MULTIPLY, NODE_DIVIDE,
 
   // Literals
-  AST_NUMBER, AST_NAME,
+  NODE_NUMBER, NODE_NAME,
+  NODE_QUOTE,
 
   // Keywords
-  AST_SAY
+  NODE_SAY
 } ASTType;
 
 
