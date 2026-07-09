@@ -1,6 +1,6 @@
-# CRy
+# CRy -
 
-A high performance programming and english like programming language(still on lexer stage)
+## A high performance programming and english like programming language(on the parser stage)
 
 ___
 
@@ -8,7 +8,7 @@ ___
 
 * **The UFN**: Cry supports symbols in names by using the Un-alnum-for-names(ufn) function
 * **Supports names with spaces**: the language support spaces inside names instead of using the old school `_`
-* **High performance lexer**: Not a single `<string.h>` is included in sources
+* **High performance lexer**: Not a single `<string.h>` is included in sources unless for the repl
 * **Leak free engine**: The language is entirely leak-free, verified via **Valgrind**
 * **Amazing line and column tracking**: it handles line and column counting perfectly, no manual counting needed
 
@@ -36,22 +36,11 @@ The language is built via a `Makefile`
 
 ### Build commands
 
-to compile the program:
-    ```bash
-    $ make
-    ```
+to compile the program: `$ make`
 
 to run the program:
-    ```bash
-    $ make run
-    ```
-
-or
-    ```bash
-    $ ./cry
-    ```
+    `$ make run` or
+    `$ ./cry`
 
 to compile the program with debug symbols enabled:
-    ```bash
-    $ make debug
-    ```
+    `$ make debug`
