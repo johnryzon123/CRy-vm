@@ -16,7 +16,7 @@ ___
 
 ## Cons
 
-* **Doesn't have a parser and a vm yet**
+* **Doesn't have a proper parser and a vm yet**
 * **Doesn't handle strings**
 * **May contain hidden bugs**
 * **Couldn't run from files for now**
