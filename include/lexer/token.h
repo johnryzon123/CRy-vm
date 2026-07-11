@@ -7,7 +7,8 @@ typedef enum TokenType {
   TOK_MINUS,
   TOK_STAR,
   TOK_SLASH,
-
+  
+  TOK_EQUAL,
   TOK_COMMA,
   TOK_DOT,
 
@@ -16,6 +17,7 @@ typedef enum TokenType {
   TOK_QUOTE,
 
   TOK_SAY,
+  TOK_SET,
 
   TOK_EOF, TOK_NONE, LEX_ERR, PARSE_ERR,
   ERR_NONE

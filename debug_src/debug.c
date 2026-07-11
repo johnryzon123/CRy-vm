@@ -49,7 +49,11 @@ static void debugASTNode(ASTNode node) {
     case NODE_SAY:
       printf("Statement: SAY (Value Index: %d)\n", node.as.SaySTMT.value);
       break;
-                
+    
+    case NODE_SET:
+      printf("Statement: SET (Name: %d, Value: %d)\n", node.as.SetSTMT.name, node.as.SetSTMT.value);
+      break;
+
     case NODE_NUMBER:
       printf("Literal: INT (%lf)\n", node.as.number);
       break;

@@ -43,8 +43,12 @@ static void isKeyword(Lexer* lexer) {
         if (lexer->start[1] == 'a' && lexer->start[2] == 'y') {
           lexer->Tokennow = setToken(lexer, TOK_SAY);
           return;
-        }
-      }
+        } // say
+        if (lexer->start[1] == 'e' && lexer->start[2] == 't') {
+          lexer->Tokennow = setToken(lexer, TOK_SET);
+          return;
+        } // set
+      } // s
     default:
       return;
   }

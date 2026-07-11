@@ -20,6 +20,11 @@ typedef struct ASTNode {
     struct {
       int value;
     } SaySTMT;
+
+    struct {
+      int name;
+      int value;
+    } SetSTMT;
   } as;
   
 

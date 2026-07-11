@@ -12,7 +12,7 @@ typedef enum ASTType : uint8_t{
   NODE_QUOTE,
 
   // Keywords
-  NODE_SAY
+  NODE_SAY, NODE_SET
 } ASTType;
 
 

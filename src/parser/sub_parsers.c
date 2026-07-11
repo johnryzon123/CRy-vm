@@ -32,10 +32,52 @@ static int say_stmt(Parser* parser) {
   return say_idx;
 }
 
+static int set_stmt(Parser* parser) {
+  nextToken(parser);
+
+  if (currentToken(parser).type != TOK_COMMA) {
+    setParseErr(parser, "Expect ',' after set keyword.");
+    return -2;
+  }
+
+  nextToken(parser);
+
+  int name_idx = parse_value(parser);
+  if (name_idx == -1 || parser->asts.nodes[name_idx].type != NODE_NAME) {
+    setParseErr(parser, "Expect name after ','");
+    return -2;
+  }
+
+  if (currentToken(parser).type != TOK_EQUAL) {
+    setParseErr(parser, "Expect '=' after the variable name.");
+    return -2;
+  }
+  nextToken(parser);
+
+  int value_idx = parse_expression(parser, 1);
+  
+  if (value_idx == -1) {
+    setParseErr(parser, "Expect value when setting variables.");
+    return -2;
+  }
+
+  if (currentToken(parser).type != TOK_DOT) {
+    setParseErr(parser, "Expect '.' after set statement.");
+    return -2;
+  }
+
+  int set_idx = setASTNode(parser, NODE_SET);
+  parser->asts.nodes[set_idx].as.SetSTMT.name = name_idx;
+  parser->asts.nodes[set_idx].as.SetSTMT.value = value_idx;
+  return set_idx;
+}
+
 int parse_statement(Parser* parser) {
   switch (currentToken(parser).type) {
     case TOK_SAY:
       return say_stmt(parser);
+    case TOK_SET:
+      return set_stmt(parser);
     default:
       return parse_expression(parser, 1);
   }

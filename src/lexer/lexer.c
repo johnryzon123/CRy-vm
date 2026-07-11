@@ -46,6 +46,8 @@ Token scanToken(Lexer* lexer) {
       return setToken(lexer, TOK_COMMA);
     case '.':
       return setToken(lexer, TOK_DOT);
+    case '=':
+      return setToken(lexer, TOK_EQUAL);
 
     case '\0':
       return setToken(lexer, TOK_EOF);
