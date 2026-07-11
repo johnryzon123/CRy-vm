@@ -3,10 +3,7 @@
 #include "ast_type.h"
 
 typedef struct ASTNode {
-  ASTType type;
-  unsigned int line;
-  unsigned int column;
-
+  // Bigger members first
   union {
     double number;
 
@@ -24,9 +21,12 @@ typedef struct ASTNode {
       int value;
     } SaySTMT;
   } as;
+  
 
+  // Smaller members last
+  unsigned int line;
+  unsigned int column;
+  ASTType type;
 } ASTNode;
-
-
 
 #endif

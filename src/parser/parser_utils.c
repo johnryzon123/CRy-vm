@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdint.h>
 #include "parser/ast_node.h"
 #include "parser/parser.h"
 #include "parser/ast.h"
@@ -21,7 +22,7 @@ int setASTNode(Parser* parser, ASTType type) {
   int index = allocateNode(parser);
   Token matched = prevToken(parser);
 
-  parser->asts.nodes[index].type = type;
+  parser->asts.nodes[index].type = (uint8_t)type;
   parser->asts.nodes[index].line = matched.line_num;
   parser->asts.nodes[index].column = matched.column;
   return index;
@@ -31,7 +32,7 @@ int setBinaryNode(Parser* parser, ASTType type, int left, int right) {
   int index = allocateNode(parser);
   Token matched = prevToken(parser);
 
-  parser->asts.nodes[index].type = type;
+  parser->asts.nodes[index].type = (uint8_t)type;
   parser->asts.nodes[index].line = matched.line_num;
   parser->asts.nodes[index].column = matched.column;
   parser->asts.nodes[index].as.Math.left = left;

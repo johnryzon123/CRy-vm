@@ -1,5 +1,6 @@
 #ifndef INCLUDE_LEXER_TOKEN_H
 #define INCLUDE_LEXER_TOKEN_H
+#include <stdint.h>
 
 typedef enum TokenType {
   TOK_PLUS,
@@ -19,11 +20,11 @@ typedef enum TokenType {
 
 typedef struct Token {
   TokenType type;
+  char* start;
+  char* message; 
+  unsigned int length;
   unsigned short line_num;
   unsigned short column;
-  unsigned int length;
-  char* start;
-  char* message;
 } Token;
 
 #endif
