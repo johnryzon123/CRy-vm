@@ -12,14 +12,20 @@ endif
 
 CC=@gcc
 BEAR=@bear
+DEBUG_FLAGS =
+DEBUG_SRC = debug_src/no_debug.c
 SRC=$(wildcard src/*.c) $(wildcard src/**/*.c)
-OBJ=$(patsubst %.c,build/%.o,$(notdir $(SRC)))
+OBJ=$(patsubst %.c,build/%.o,$(notdir $(SRC))) build/debug.o
 INCLUDE=include/
 EXEC=cry$(EXT)
 
+ifeq ($(filter debug,$(MAKECMDGOALS)),debug)
+  DEBUG_FLAGS = -g
+  DEBUG_SRC = debug_src/debug.c
+endif
+
 all: $(EXEC)
-debug: DEBUG_MODE=-g
-debug: clean all
+debug: clean $(EXEC)
 
 space:=$(subst ,, )
 comma:=,
@@ -31,7 +37,11 @@ VPATH = src:$(wildcard src/*/)
 
 build/%.o: %.c | build/
 	@echo "Compiling: $<"
-	$(CC) -c $< -I $(INCLUDE) -o $@ $(DEBUG_MODE)
+	$(CC) -c $< -I $(INCLUDE) -o $@ $(DEBUG_FLAGS)
+
+build/debug.o: $(DEBUG_SRC) | build/
+	@echo "Compiling configuration: $<"
+	$(CC) $(DEBUG_FLAGS) -c $< -I $(INCLUDE) -o $@
 
 build/:
 ifeq ($(OS),Windows_NT)
