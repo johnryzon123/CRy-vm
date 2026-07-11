@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
     Lexer lexer;
     initLexer(&lexer);
     setSourceLexer(&lexer, readFile(argv[1]));
-    run(&lexer);
+    return run(&lexer);
   }
   return repl();
 }
