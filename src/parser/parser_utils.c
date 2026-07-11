@@ -27,8 +27,24 @@ int setASTNode(Parser* parser, ASTType type) {
   return index;
 }
 
+int setBinaryNode(Parser* parser, ASTType type, int left, int right) {
+  int index = allocateNode(parser);
+  Token matched = prevToken(parser);
+
+  parser->asts.nodes[index].type = type;
+  parser->asts.nodes[index].line = matched.line_num;
+  parser->asts.nodes[index].column = matched.column;
+  parser->asts.nodes[index].as.Math.left = left;
+  parser->asts.nodes[index].as.Math.right = right;
+  return index;
+}
+
 Token currentToken(Parser* parser) {
   return parser->tokens[parser->current];
+}
+
+Token peekNextToken(Parser* parser) {
+  return parser->tokens[parser->current + 1];
 }
 
 Token prevToken(Parser* parser) {

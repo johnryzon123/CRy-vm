@@ -9,15 +9,16 @@ typedef enum TokenType TokenType;
 typedef struct Token Token;
 
 Token currentToken(Parser* parser);
+Token peekNextToken(Parser* parser);
 Token prevToken(Parser* parser);
 Token nextToken(Parser* parser);
 bool parser_isAtEnd(Parser* parser);
 bool matchToken(Parser* parser, TokenType type);
 int setASTNode(Parser* parser, ASTType type);
+int setBinaryNode(Parser* parser, ASTType type, int left, int right);
 int allocateNode(Parser* parser);
 int parse_statement(Parser* parser);
-int parse_additive(Parser* parser);
-int parse_multiplicative(Parser* parser);
+int parse_expression(Parser* parser, int min_weight);
 int parse_value(Parser* parser);
 
 #endif

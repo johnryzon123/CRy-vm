@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "parser/precedence.h"
 #include "parser/ast.h"
 #include "parser/ast_node.h"
 #include "parser_api.h"
@@ -26,38 +27,27 @@ int parse_value(Parser* parser) {
   return -1;
 }
 
-int parse_multiplicative(Parser* parser) {
+int parse_expression(Parser* parser, int min_weight) {
   int left = parse_value(parser);
-  int matched_type = currentToken(parser).type;
+  int before_left = left;
 
-  if (matchToken(parser, TOK_STAR) || matchToken(parser, TOK_SLASH)) {
-    int index = /*is*/ (matched_type == TOK_STAR) ?
-                /*if it is*/
-                  setASTNode(parser, NODE_MULTIPLY)
-                /*if it's not*/:
-                  setASTNode(parser, NODE_DIVIDE);
+  while (1) {
+    TokenType current_op = currentToken(parser).type;
+    int op_weight = precedence_table[current_op].weight;
     
-    int right = parse_value(parser);
-    parser->asts.nodes[index].as.Math.left = left;
-    parser->asts.nodes[index].as.Math.right = right;
-    return index;
+    if (op_weight < min_weight) {
+      break;
+    }
+
+    nextToken(parser);
+
+    int nextweight = op_weight + 1;
+    
+    int right = parse_expression(parser, nextweight);
+
+    ASTType ast_type = precedence_table[current_op].node_type;
+    left = setBinaryNode(parser, ast_type, left, right);
   }
   return left;
 }
 
-int parse_additive(Parser* parser) {
-  int left = parse_multiplicative(parser);
-  int matched_type = currentToken(parser).type;
-
-  if (matchToken(parser, TOK_PLUS) || matchToken(parser, TOK_MINUS)) {
-    int index = (matched_type == TOK_PLUS) ?
-                  setASTNode(parser, NODE_PLUS)
-                : setASTNode(parser, NODE_MINUS);
-    
-    int right = parse_multiplicative(parser);
-    parser->asts.nodes[index].as.Math.left = left;
-    parser->asts.nodes[index].as.Math.right = right;
-    return index;
-  }
-  return left;
-}
