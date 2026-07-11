@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "parser/ast_node.h"
+#include "parser/ast.h"
 #include "lexer/token.h"
 #include "utils/debug.h"
 
@@ -29,6 +31,43 @@ printf("[TOKEN] Line: %d | Col: %d | Type: %s | Literal: '%.*s' | Message: '%s'\
            token.message);
 }
 
+static void debugASTNode(ASTNode node) {
+  switch (node.type) {
+    case NODE_PLUS:
+      printf("Operation: PLUS\n");
+      break;
+    case NODE_MINUS:
+      printf("Operation: MINUS\n");
+      break;
+    case NODE_MULTIPLY:
+      printf("Operation: MULTIPLY\n");
+      break;
+    case NODE_DIVIDE:
+      printf("Operation: DIVIDE\n");
+      break;
+
+    case NODE_SAY:
+      printf("Statement: SAY (Value Index: %d)\n", node.as.SaySTMT.value);
+      break;
+                
+    case NODE_NUMBER:
+      printf("Literal: INT (%lf)\n", node.as.number);
+      break;
+    
+    case NODE_NAME:
+      printf("Literal: NAME (%.*s)\n", node.as.string_name.length, node.as.string_name.start);
+      break;
+
+    case NODE_QUOTE:
+      printf("Literal: QUOTE (\"%.*s\")", node.as.string_name.length, node.as.string_name.start);
+      break;
+
+    default:
+      printf("Unknown Node Type: %d\n", node.type);
+      break;
+  }
+}
+
 void debugTokens(Token* tokens) {
   while (tokens->type != TOK_EOF) {
     debugToken(*tokens);
@@ -41,4 +80,13 @@ void debugTokens(Token* tokens) {
   debugToken(*tokens);
 }
 
+void debugAST(ASTs* nodes) {
+  printf("==AST==\n");
+  
+  for (int i=0; i<nodes->used; i++) {
+    ASTNode node = nodes->nodes[i];
+    printf("[%04d]", i);
 
+    debugASTNode(node);
+  }
+}

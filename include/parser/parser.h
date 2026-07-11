@@ -1,6 +1,7 @@
 #ifndef INCLUDE_PARSER_PARSER_H
 #define INCLUDE_PARSER_PARSER_H
 #include "ast.h"
+#include "lexer/token.h"
 
 typedef struct Token Token;
 
@@ -9,6 +10,7 @@ typedef struct Parser {
   // ASTs means "Abstract Syntax Trees" not "Abstract Syntax Trees of Syntaxes"
   ASTs asts;
   unsigned int current;
+  Token errornow;
 } Parser;
 
 void initParser(Parser* parser, Token** tokens);

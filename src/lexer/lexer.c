@@ -41,6 +41,12 @@ Token scanToken(Lexer* lexer) {
       return setToken(lexer, TOK_STAR);
     case '/':
       return setToken(lexer, TOK_SLASH);
+
+    case ',':
+      return setToken(lexer, TOK_COMMA);
+    case '.':
+      return setToken(lexer, TOK_DOT);
+
     case '\0':
       return setToken(lexer, TOK_EOF);
   }

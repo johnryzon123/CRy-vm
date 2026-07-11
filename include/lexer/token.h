@@ -8,14 +8,17 @@ typedef enum TokenType {
   TOK_STAR,
   TOK_SLASH,
 
+  TOK_COMMA,
+  TOK_DOT,
+
   TOK_NUMBER,
   TOK_NAME,
   TOK_QUOTE,
 
   TOK_SAY,
 
-  TOK_EOF, TOK_NONE, LEX_ERR,
-  LEX_ERR_NONE
+  TOK_EOF, TOK_NONE, LEX_ERR, PARSE_ERR,
+  ERR_NONE
 } TokenType;
 
 typedef struct Token {

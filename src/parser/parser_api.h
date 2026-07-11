@@ -14,6 +14,7 @@ Token prevToken(Parser* parser);
 Token nextToken(Parser* parser);
 bool parser_isAtEnd(Parser* parser);
 bool matchToken(Parser* parser, TokenType type);
+void setParseErr(Parser* parser, char* message);
 int setASTNode(Parser* parser, ASTType type);
 int setBinaryNode(Parser* parser, ASTType type, int left, int right);
 int allocateNode(Parser* parser);

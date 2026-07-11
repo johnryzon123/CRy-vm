@@ -5,6 +5,42 @@
 #include "parser_api.h"
 #include "lexer/token.h"
 
+static int say_stmt(Parser* parser) {
+  nextToken(parser); // say is already verified, go to the next token
+
+  if (currentToken(parser).type != TOK_COMMA) {
+    setParseErr(parser, "Expect ',' after say keyword.");
+    return -2;
+  }
+
+  nextToken(parser); // swallow the comma
+  
+  int value_idx;
+  if ((value_idx = parse_expression(parser, 1)) == -1) {
+    setParseErr(parser, "Expect expression in say statement.");
+    return -2;
+  }
+
+  if (currentToken(parser).type != TOK_DOT) {
+    setParseErr(parser, "Expect '.' after the say statement.");
+    return -2;
+  }
+
+  int say_idx = setASTNode(parser, NODE_SAY);
+
+  parser->asts.nodes[say_idx].as.SaySTMT.value = value_idx;
+  return say_idx;
+}
+
+int parse_statement(Parser* parser) {
+  switch (currentToken(parser).type) {
+    case TOK_SAY:
+      return say_stmt(parser);
+    default:
+      return parse_expression(parser, 1);
+  }
+}
+
 int parse_value(Parser* parser) {
   Token matched = currentToken(parser);
   if (matchToken(parser, TOK_NUMBER)) {

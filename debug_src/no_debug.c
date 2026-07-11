@@ -3,3 +3,7 @@
 void debugTokens(Token* tokens) {
   // do nothing as it is not debug mode
 }
+
+void debugAST(ASTs* nodes) {
+  // also do nothing
+}

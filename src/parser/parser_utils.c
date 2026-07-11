@@ -59,6 +59,12 @@ Token nextToken(Parser* parser) {
   return parser->tokens[parser->current - 1];
 }
 
+void setParseErr(Parser* parser, char* message) {
+  parser->errornow = currentToken(parser);
+  parser->errornow.type = PARSE_ERR;
+  parser->errornow.message = message;
+}
+
 int allocateNode(Parser* parser) {
   if (parser->asts.used >= parser->asts.buffer) {
     parser->asts.buffer = parser->asts.buffer == 0 ? 10 : parser->asts.buffer * 2;

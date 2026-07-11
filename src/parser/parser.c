@@ -15,9 +15,12 @@ void initParser(Parser* parser, Token** tokens) {
 
 void parse(Parser* parser) {
   while (parser->tokens[parser->current].type != TOK_EOF) {
-    int root_node_index = parse_expression(parser, 1);
+    if (parser->errornow.type == PARSE_ERR)
+      break;
+
+    int root_node_index = parse_statement(parser);
         
-    if (root_node_index == -1) {
+    if (root_node_index == -1 || root_node_index == -2) {
       break;
     }
         
