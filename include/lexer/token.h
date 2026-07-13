@@ -11,6 +11,8 @@ typedef enum TokenType {
   TOK_EQUAL,
   TOK_COMMA,
   TOK_DOT,
+  TOK_LPAREN,
+  TOK_RPAREN,
 
   TOK_NUMBER,
   TOK_NAME,

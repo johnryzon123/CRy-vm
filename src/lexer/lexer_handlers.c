@@ -91,14 +91,14 @@ Token handleQuote(Lexer* lexer) {
 }
 
 Token handleNumber(Lexer* lexer) {
-  while (isdigit(peek(lexer)) || (peek(lexer) == ' ' && peekNext(lexer) == '(')) {
+  while (isdigit(peek(lexer)) || peek(lexer) == '(') {
     nextchar(lexer);
     nextcharEdit(lexer);
     if (peek(lexer) == '(') {
-      skipComments(lexer);
+      skip_inline_comments(lexer);
     }
   }
-  
+
   return setToken(lexer, TOK_NUMBER);
 }
 
