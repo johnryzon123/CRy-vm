@@ -7,6 +7,7 @@
 ## Key Features
 
 - **The UFN**: Cry supports symbols in names by using the Un-alnum-for-names(ufn) function
+- **Inline Comments**: You may put a comment inside names without affecting it, etc. `name1 (<-- a space is needed before '(')name1`
 - **Supports names with spaces**: the language support spaces inside names instead of using the old school `_`
 - **High performance lexer**: Not a single `<string.h>` is included in sources unless for the repl
 - **Leak free engine**: The language is entirely leak-free, verified via **Valgrind**

@@ -15,6 +15,23 @@ static Token setQuoteToken(Lexer* lexer) {
   return lexer->Tokennow;
 }
 
+static void skip_inline_comments(Lexer* lexer) {
+  lexer->editor--;
+  nextchar(lexer); // skip the '('
+
+  char c;
+  while ((c = peek(lexer)) != ')' && c != '\0') {
+    nextchar(lexer);
+  }
+
+  if (c == '\0') {
+    setLexError(lexer, "Expected ')' after inline comments");
+    return;
+  }
+
+  nextchar(lexer);
+}
+
 static void unalnum_for_names(Lexer* lexer) {
   nextchar(lexer);
   
@@ -74,9 +91,12 @@ Token handleQuote(Lexer* lexer) {
 }
 
 Token handleNumber(Lexer* lexer) {
-  while (isdigit(peek(lexer))) {
+  while (isdigit(peek(lexer)) || (peek(lexer) == ' ' && peekNext(lexer) == '(')) {
     nextchar(lexer);
     nextcharEdit(lexer);
+    if (peek(lexer) == '(') {
+      skipComments(lexer);
+    }
   }
   
   return setToken(lexer, TOK_NUMBER);
@@ -98,8 +118,9 @@ Token handleNames(Lexer* lexer) {
         if (lexer->Tokennow.type != TOK_NONE)
           return lexer->Tokennow;
         continue; 
-      } else { 
-        break;
+      } else {
+        skip_inline_comments(lexer);
+        continue;
       }
     }
     

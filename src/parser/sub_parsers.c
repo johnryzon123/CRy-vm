@@ -9,7 +9,7 @@ static int say_stmt(Parser* parser) {
   nextToken(parser); // say is already verified, go to the next token
 
   if (currentToken(parser).type != TOK_COMMA) {
-    setParseErr(parser, "Expect ',' after say keyword.");
+    setParseErr(parser, "Expected ',' after 'say'.");
     return -2;
   }
 
@@ -17,12 +17,12 @@ static int say_stmt(Parser* parser) {
   
   int value_idx;
   if ((value_idx = parse_expression(parser, 1)) == -1) {
-    setParseErr(parser, "Expect expression in say statement.");
+    setParseErr(parser, "Expected expression after ',' in say statement.");
     return -2;
   }
 
   if (currentToken(parser).type != TOK_DOT) {
-    setParseErr(parser, "Expect '.' after the say statement.");
+    setParseErr(parser, "Expecteded '.' after the say statement.");
     return -2;
   }
 
@@ -36,7 +36,7 @@ static int set_stmt(Parser* parser) {
   nextToken(parser);
 
   if (currentToken(parser).type != TOK_COMMA) {
-    setParseErr(parser, "Expect ',' after set keyword.");
+    setParseErr(parser, "Expected ',' after 'set'.");
     return -2;
   }
 
@@ -44,12 +44,12 @@ static int set_stmt(Parser* parser) {
 
   int name_idx = parse_value(parser);
   if (name_idx == -1 || parser->asts.nodes[name_idx].type != NODE_NAME) {
-    setParseErr(parser, "Expect name after ','");
+    setParseErr(parser, "Expected name after ','.");
     return -2;
   }
 
   if (currentToken(parser).type != TOK_EQUAL) {
-    setParseErr(parser, "Expect '=' after the variable name.");
+    setParseErr(parser, "Expected '=' after the variable name.");
     return -2;
   }
   nextToken(parser);
@@ -57,12 +57,12 @@ static int set_stmt(Parser* parser) {
   int value_idx = parse_expression(parser, 1);
   
   if (value_idx == -1) {
-    setParseErr(parser, "Expect value when setting variables.");
+    setParseErr(parser, "Expected value when setting variables.");
     return -2;
   }
 
   if (currentToken(parser).type != TOK_DOT) {
-    setParseErr(parser, "Expect '.' after set statement.");
+    setParseErr(parser, "Expected '.' after set statement.");
     return -2;
   }
 
