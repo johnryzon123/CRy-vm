@@ -10,6 +10,7 @@ void initParser(Parser* parser, Token** tokens) {
   parser->current = 0;
   parser->asts.buffer = 10;
   parser->asts.used = 0;
+  parser->errornow.type = TOK_NONE;
   parser->asts.nodes = malloc(sizeof(ASTNode) * parser->asts.buffer);
 }
 
