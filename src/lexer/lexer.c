@@ -68,8 +68,7 @@ Token* scanTokens(Lexer* lexer) {
       buffer *= 2;
       tokens = realloc(tokens, sizeof(Token) * buffer);
     }
-    scanToken(lexer);
-    tokens[used] = lexer->Tokennow;
+    tokens[used] = scanToken(lexer);
     used++;
 
     if (lexer->Tokennow.type == TOK_EOF || lexer->Tokennow.type == LEX_ERR) {

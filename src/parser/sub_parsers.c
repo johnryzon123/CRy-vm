@@ -22,7 +22,7 @@ static int say_stmt(Parser* parser) {
   }
 
   if (currentToken(parser).type != TOK_DOT) {
-    setParseErr(parser, "Expecteded '.' after the say statement.");
+    setParseErr(parser, "Expected '.' after the say statement.");
     return -2;
   }
 
@@ -111,6 +111,16 @@ int parse_expression(Parser* parser, int min_weight) {
 
   while (1) {
     TokenType current_op = currentToken(parser).type;
+
+    if (current_op == TOK_LPAREN) {
+      nextToken(parser);
+      parse_expression(parser, 1);
+      if (currentToken(parser).type != TOK_RPAREN) {
+        setParseErr(parser, "Expected ')' in grouping operation");
+        return -2;
+      }
+      continue;
+    }
     int op_weight = precedence_table[current_op].weight;
     
     if (op_weight < min_weight) {

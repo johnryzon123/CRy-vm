@@ -8,6 +8,6 @@ Precedence precedence_table[] = {
 
   [TOK_STAR] = {NODE_MULTIPLY, 2},
   [TOK_SLASH] = {NODE_DIVIDE, 2},
-
+  
   [TOK_NONE] = {NODE_NAME, 0}
 };

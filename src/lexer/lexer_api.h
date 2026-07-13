@@ -14,6 +14,5 @@ char peekEdit(Lexer* lexer);
 void nextchar(Lexer* lexer);
 void nextcharEdit(Lexer* lexer);
 void skipSpaces(Lexer* lexer);
-void skipComments(Lexer* lexer);
 
 #endif

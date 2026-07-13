@@ -12,6 +12,8 @@ static void debugToken(Token token) {
         case TOK_MINUS:  type_str = "MINUS";  break;
         case TOK_STAR:   type_str = "STAR";   break;
         case TOK_SLASH:  type_str = "SLASH";  break;
+        case TOK_LPAREN: type_str = "LEFT PARENTHESIS"; break;
+        case TOK_RPAREN: type_str = "RIGHT PARENTHESIS"; break;
         case TOK_NUMBER: type_str = "NUMBER"; break;
         case TOK_QUOTE:  type_str = "QUOTE";  break;
         case TOK_SAY:    type_str = "SAY";    break;

@@ -86,10 +86,12 @@ void skipSpaces(Lexer* lexer) {
     if (c == ' ' || c == '\r' || c == '\t' || c == '\n') {
       nextchar(lexer);
     } else if (c == '(') {
+      if (*(lexer->current - 1) != ' ') break;
       skipComments(lexer);
     } else {
-      lexer->start = lexer->current;
-      return;
+      break;
     }
   }
+  lexer->start = lexer->current;
+  lexer->editor = lexer->current;
 }
