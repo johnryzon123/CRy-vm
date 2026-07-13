@@ -1,29 +1,27 @@
-#include <stdio.h>
+#include <stdio.h> 
 #include <stdlib.h>
-#include "utils/file_reader.h"
-
+#include <unistd.h> 
+#include <fcntl.h> 
+#include "utils/file_reader.h" 
 char* readFile(char* filename) {
-  FILE* file = fopen(filename, "rb");
-  if (file == NULL) {
+  int fd = open(filename, O_RDONLY); //Open file
+  if (fd < 0) { //Just like if file == NULL type syscall
     printf("cry: File does not exist\n");
     exit(1);
   }
-
-  fseek(file, 0, SEEK_END);
-
-  int size = ftell(file);
-  rewind(file);
+  
+  int size = lseek(fd, 0, SEEK_OUT);
+  lseek(fd, 0, SEEK_SET);
   
   char* buffer = malloc(sizeof(char) * size+1);
 
   if (buffer == NULL) {
-    fclose(file);
+    close(fd);
     return NULL;
   }
 
-  fread(buffer, sizeof(char), size, file);
-
+  read(fd, buffer, size);
   buffer[size] = '\0';
-  fclose(file);
+  close(fd);
   return buffer;
 }
