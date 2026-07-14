@@ -31,13 +31,13 @@
 
 ## Performance (Benchmarks)
 
-CRy is optimized for speed, the following metrics is created on linux while parsing a heavy 60,000 line expression file:
+CRy is optimized for speed, the following metrics is created on linux while parsing a heavy 58,999 line expression file:
 
 ```bash
-time ./cry tests/bench.ry
-  real   0m0.240s
-  user   0m0.198s  # <-- Under 0.2 seconds for 60,000 lines of source expressions!
-  sys    0m0.040s
+ryzon@johnryzonPc:~/Dev/Projects/CRy$ time ./cry tests/bench.ry
+real    0m0.116s
+user    0m0.099s
+sys     0m0.017s
 ```
 
 ## Building the Project

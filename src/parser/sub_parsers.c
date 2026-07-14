@@ -119,6 +119,7 @@ int parse_expression(Parser* parser, int min_weight) {
         setParseErr(parser, "Expected ')' in grouping operation");
         return -2;
       }
+      nextToken(parser); // I definitely forgot to skip ')'
       continue;
     }
     int op_weight = precedence_table[current_op].weight;
