@@ -124,7 +124,7 @@ Token handleNames(Lexer* lexer) {
       }
     }
     
-    if (isalpha(c) || c == ' ' || c == '_') {
+    if (isalnum(c) || c == ' ' || c == '_') {
       *lexer->editor = c;
       nextcharEdit(lexer);
       nextchar(lexer);
