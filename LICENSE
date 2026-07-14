@@ -1,3 +1,13 @@
+The software is entirely free and copyable but you MUST follow the specific rules:
+  * You may obtain a copy of the software but never unoptimize it
+  * Only useful PRs are allowed, no PR with any kind of harrasing other people nor the "Software"
+  * Contributing makes the software's life longer and it's ok but ALWAYS check if your very own code even works
+  * CRy should stay cross-platform, no allowonce of 1-2 OS compatibility
+  * If you see a single issue, you MUST report it immediately. Not a single bug should exists
+  * There could be a chance of spaces inside names being removed in the future, it may cause giant bugs unfixable bugs
+
+
+The software is free and uses the following license:
 MIT License
 
 Copyright (c) 2026 Johnryzon Z. Abejero
